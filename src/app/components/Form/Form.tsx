@@ -28,7 +28,7 @@ const Form: React.FC = () => {
         e.preventDefault();
         try {
             // Отправляем данные на сервер
-            const response = await axios.post('/api/form', formData);
+            const response = await axios.post('http://localhost:5000/api/form', formData);
             console.log('Данные отправлены:', response.data);
         } catch (error) {
             console.error('Ошибка при отправке данных:', error);
