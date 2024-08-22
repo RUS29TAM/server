@@ -6,17 +6,23 @@ import Modal from '../Modal/Modal';
 
 interface FormData {
     author: string;
-    lastName: string;
-    message: string;
+    age: string;
+    word: string;
+    description: string;
 }
+
+const randomWords = ['Оказывается слово', 'Представляешь', 'Разве ты не знаешь, что', 'Запомни', 'Будь в курсе']; // Массив случайных слов
 
 const Form: React.FC = () => {
     const [formData, setFormData] = useState<FormData>({
         author: '',
-        lastName: '',
-        message: ''
+        age: '',
+        word: '',
+        description: ''
     });
     const [showModal, setShowModal] = useState<boolean>(false);
+    const [randomWord, setRandomWord] = useState<string>(''); // Состояние для случайного слова
+
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const {name, value} = e.target;
@@ -32,7 +38,9 @@ const Form: React.FC = () => {
             // Отправляем данные на сервер
             const response = await axios.post('http://localhost:5000/api/form', formData);
             console.log('Данные отправлены:', response.data);
-
+            // Выбор случайного слова
+            const randomIndex = Math.floor(Math.random() * randomWords.length);
+            setRandomWord(randomWords[randomIndex]);
             // Показать всплывающее окно
             setShowModal(true);
         } catch (error) {
@@ -44,15 +52,17 @@ const Form: React.FC = () => {
         // Очистка полей формы после успешной отправки
         setFormData({
             author: '',
-            lastName: '',
-            message: ''
+            age: '',
+            word: '',
+            description: ''
         });
     };
     const clearForm = () => {
         setFormData({
             author: '',
-            lastName: '',
-            message: ''
+            age: '',
+            word: '',
+            description: ''
         });
     };
 
@@ -76,9 +86,23 @@ const Form: React.FC = () => {
                 <div className={styles.inputContainer}>
                     <input
                         className={styles.inputField}
+                        type="number"
+                        name="age"
+                        value={formData.age}
+                        onChange={handleChange}
+                        placeholder="Полных лет автору"
+                        required
+                        maxLength={25}
+                    />
+                    <button className={styles.clearInput} onClick={() => setFormData}>&times;</button>
+                </div>
+
+                <div className={styles.inputContainer}>
+                    <input
+                        className={styles.inputField}
                         type="text"
-                        name="lastName"
-                        value={formData.lastName}
+                        name="word"
+                        value={formData.word}
                         onChange={handleChange}
                         placeholder="Слово"
                         required
@@ -90,8 +114,8 @@ const Form: React.FC = () => {
                 <div className={styles.inputContainer}>
                 <textarea
                     className={styles.textArea}
-                    name="message"
-                    value={formData.message}
+                    name="description"
+                    value={formData.description}
                     onChange={handleChange}
                     placeholder="Описание"
                     required
@@ -102,7 +126,7 @@ const Form: React.FC = () => {
                 <button className={styles.submitButton} type="submit">Отправить</button>
             </form>
             {showModal && (
-                <Modal formData={formData} onClose={handleCloseModal}/>
+                <Modal formData={formData} randomWord={randomWord} onClose={handleCloseModal}/>
             )}
         </>
 
