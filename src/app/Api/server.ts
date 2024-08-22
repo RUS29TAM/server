@@ -17,9 +17,10 @@ mongoose.connect('mongodb://127.0.0.1:27017/wordsdatabase', {
 
 // Определение схемы и модели
 const formSchema = new mongoose.Schema({
-    firstName: String,
-    lastName: String,
-    email: String
+    author: String,
+    age: String,
+    word: String,
+    description: String,
 });
 
 const FormModel = mongoose.model('Form', formSchema);
