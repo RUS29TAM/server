@@ -23,7 +23,6 @@ const Form: React.FC = () => {
     const [showModal, setShowModal] = useState<boolean>(false);
     const [randomWord, setRandomWord] = useState<string>(''); // Состояние для случайного слова
 
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const {name, value} = e.target;
         setFormData({
@@ -36,7 +35,7 @@ const Form: React.FC = () => {
         e.preventDefault();
         try {
             // Отправляем данные на сервер
-            const response = await axios.post('http://localhost:5000/api/form', formData);
+            const response = await axios.post('http://localhost:5000/api/data', formData);
             console.log('Данные отправлены:', response.data);
             // Выбор случайного слова
             const randomIndex = Math.floor(Math.random() * randomWords.length);
