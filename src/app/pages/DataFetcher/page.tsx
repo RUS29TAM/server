@@ -4,7 +4,7 @@ import axios from 'axios';
 import styles from './DataFetcher.module.css';
 
 interface DataItem {
-    _id: string;
+    _id?: string;
     author: string;
     age: string;
     word: string;
