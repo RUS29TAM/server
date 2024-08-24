@@ -46,6 +46,22 @@ app.get('/api/data', async (req, res) => {
     }
 });
 
+// Обработка DELETE-запроса для удаления элемента данных по его _id
+app.delete('/api/data/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const result = await FormModel.findByIdAndDelete(id); // Удаление документа по _id
+        if (result) {
+            res.status(200).send(`Document with id ${id} deleted`);
+        } else {
+            res.status(404).send('Document not found');
+        }
+    } catch (err) {
+        console.error('Ошибка при удалении данных:', err);
+        res.status(500).send('Server error');
+    }
+});
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
