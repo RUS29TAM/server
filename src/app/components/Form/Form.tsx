@@ -68,49 +68,37 @@ const Form: React.FC = () => {
     return (
         <>
             <form className={styles.formContainer} onSubmit={handleSubmit}>
-                <div className={styles.inputContainer}>
-                    <input
-                        className={styles.inputField}
-                        type="text"
-                        name="author"
-                        value={formData.author}
-                        onChange={handleChange}
-                        placeholder="Кому пренадлежит слово"
-                        required
-                        maxLength={25}
-                    />
-                    <button className={styles.clearInput} onClick={() => setFormData}>&times;</button>
-                </div>
-
-                <div className={styles.inputContainer}>
-                    <input
-                        className={styles.inputField}
-                        type="number"
-                        name="age"
-                        value={formData.age}
-                        onChange={handleChange}
-                        placeholder="Полных лет автору"
-                        required
-                        maxLength={25}
-                    />
-                    <button className={styles.clearInput} onClick={() => setFormData}>&times;</button>
-                </div>
-
-                <div className={styles.inputContainer}>
-                    <input
-                        className={styles.inputField}
-                        type="text"
-                        name="word"
-                        value={formData.word}
-                        onChange={handleChange}
-                        placeholder="Слово"
-                        required
-                        maxLength={25}
-                    />
-                    <button className={styles.clearInput} onClick={clearForm}>&times;</button>
-                </div>
-
-                <div className={styles.inputContainer}>
+                <input
+                    className={styles.inputField}
+                    type="text"
+                    name="author"
+                    value={formData.author}
+                    onChange={handleChange}
+                    placeholder="Кому пренадлежит слово"
+                    required
+                    maxLength={25}
+                />
+                <input
+                    className={styles.inputField}
+                    type="number"
+                    name="age"
+                    value={formData.age}
+                    onChange={handleChange}
+                    placeholder="Полных лет автору"
+                    required
+                    maxLength={25}
+                />
+                <input
+                    className={styles.inputField}
+                    type="text"
+                    name="word"
+                    value={formData.word}
+                    onChange={handleChange}
+                    placeholder="Слово"
+                    required
+                    maxLength={25}
+                />
+                <div className={styles.textAreaWrapper}>
                 <textarea
                     className={styles.textArea}
                     name="description"
@@ -120,9 +108,15 @@ const Form: React.FC = () => {
                     required
                     maxLength={160}
                 />
-                    <button className={styles.clearTextArea} onClick={clearForm}>&times;</button>
+                    {/*<button className={styles.clearTextArea} onClick={clearForm}>&times;</button>*/}
                 </div>
-                <button className={styles.submitButton} type="submit">Отправить</button>
+                <div className={styles.btnWrapper}>
+                    <button className={styles.submitButton} type="submit">Отправить</button>
+                    <button className={styles.clearButton} type="button" onClick={clearForm}>Удалить</button>
+
+
+                </div>
+
             </form>
             {showModal && (
                 <Modal formData={formData} randomWord={randomWord} onClose={handleCloseModal}/>
