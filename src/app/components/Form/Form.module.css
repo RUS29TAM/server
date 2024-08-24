@@ -1,24 +1,28 @@
 .formContainer {
     display: flex;
     flex-direction: column;
-    width: 300px;
-    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin: 0;
+    backdrop-filter: blur(5px);
+    background: hsla(0,0%,100%,.1);
+    border-bottom: 1px solid hsla(0,0%,100%,.5);
+    border-radius: 10px;
+    border-right: 1px solid hsla(0,0%,100%,.5);
+    border-color: hsla(0,0%,100%,.5) hsla(0,0%,100%,.2) hsla(0,0%,100%,.2) hsla(0,0%,100%,.5);
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 25px 45px rgba(0,0,0,.1);
+
+
 }
-.inputContainer {
+.textAreaWrapper {
     position: relative;
     width: fit-content;
     display: inline-block;
 }
-.clearInput {
-    position: absolute;
-    right: 10px;
-    top: 45%;
-    transform: translateY(-50%);
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-size: 16px;
-}
+
 .clearTextArea {
     position: absolute;
     right: 10px;
@@ -35,24 +39,42 @@
     margin-bottom: 10px;
     padding: 8px;
     font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    color:  #FFF;
+    backdrop-filter: blur(5px);
+    background: rgba(0, 0, 0, 0.4);
 }
+
+.inputField::placeholder,.textArea::placeholder  {
+    color: rgba(255, 255, 255, 0.2);
+    font-weight: normal;
+    font-size: small;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
 .textArea {
     height: 150px;
     resize: none; /* Позволяет изменять размер по вертикали */
 }
 
+.btnWrapper {
+    display: flex;
+    gap: 15px;
+}
+
 .submitButton,.clearButton {
+    width: 100px;
     padding: 10px;
     font-size: 16px;
     background-color: #4CAF50;
     color: white;
     border: none;
     cursor: pointer;
+    border-radius: 5px;
 }
-.clearButton {
-    margin-top: 8px;
-}
-
 
 .submitButton:hover {
     background-color: #45a049;
