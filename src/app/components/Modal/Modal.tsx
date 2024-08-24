@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Modal.module.css';
+import Link from "next/link";
 
 interface ModalProps {
     formData: {
@@ -24,7 +25,9 @@ const Modal: React.FC<ModalProps> = ({ formData, randomWord, onClose }) => {
                     {/*<p><strong>Это:</strong> {formData.message}</p>*/}
                     <p><strong>Автор:</strong> {formData.author}</p>
                 </div>
-                <button className={styles.closeButton} onClick={onClose}>Close</button>
+                <button className={styles.closeButton} onClick={onClose}>Новое слово</button>
+                <Link className={styles.closeButton} href={'/pages/DataFetcher'}>Просмотр</Link>
+
             </div>
         </div>
     );
