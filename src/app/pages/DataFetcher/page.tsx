@@ -83,8 +83,8 @@ const Page: React.FC = () => {
                                         value={editingItem.description}
                                         onChange={(e) => setEditingItem({ ...editingItem, description: e.target.value })}
                                     />
-                                    <button className={styles.editingutton} onClick={() => editData(editingItem)}>Сохранить</button>
-                                    <button className={styles.editingButton} onClick={() => setEditingItem(null)}>Отмена</button>
+                                    <button className={styles.acceptEditButton} onClick={() => editData(editingItem)}>Сохранить</button>
+                                    <button className={styles.cancelEditButton} onClick={() => setEditingItem(null)}>Отмена</button>
                                 </div>
                         ) : (
                             <>
