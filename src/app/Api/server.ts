@@ -62,6 +62,22 @@ app.delete('/api/data/:id', async (req, res) => {
     }
 });
 
+app.put('/api/data/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const updatedData = req.body; // Данные для обновления
+        const result = await FormModel.findByIdAndUpdate(id, updatedData, { new: true });
+        if (result) {
+            res.status(200).json(result);
+        } else {
+            res.status(404).send('Document not found');
+        }
+    } catch (err) {
+        console.error('Ошибка при обновлении данных:', err);
+        res.status(500).send('Server error');
+    }
+});
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
