@@ -98,14 +98,16 @@
     border-radius: 4px;
     cursor: pointer;
     margin-right: 10px;
+    position: relative;
+
 }
 
-.editForm button:nth-child(1) {
+.acceptEditButton {
     background-color: #4CAF50;
     color: white;
 }
 
-.editForm button:nth-child(2) {
+.cancelEditButton {
     background-color: #f44336;
     color: white;
 }
