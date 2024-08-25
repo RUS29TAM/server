@@ -16,6 +16,7 @@ const Page: React.FC = () => {
     const [data, setData] = useState<DataItem[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
+    const [editingItem, setEditingItem] = useState<DataItem | null>(null);
 
     const fetchData = async () => {
         setLoading(true);
@@ -41,6 +42,16 @@ const Page: React.FC = () => {
         }
     };
 
+    const editData = async (updatedItem: DataItem) => {
+        try {
+            await axios.put(`http://localhost:5000/api/data/${updatedItem._id}`, updatedItem);
+            setData(data.map(item => (item._id === updatedItem._id ? updatedItem : item)));
+            setEditingItem(null); // Сброс редактируемого элемента после успешного обновления
+        } catch (err) {
+            setError('Ошибка при изменении данных');
+        }
+    };
+
     return (
         <div className={styles.dataFetcher}>
             <button className={styles.loadButton} onClick={fetchData} disabled={loading}>
@@ -51,16 +62,50 @@ const Page: React.FC = () => {
             <div className={styles.dataContainer}>
                 {data.map((item) => (
                     <div key={item._id} className={styles.dataItem}>
+                        {editingItem && editingItem._id === item._id ? (
+                                <div className={styles.editForm}>
+                                    <input
+                                        type="text"
+                                        value={editingItem.author}
+                                        onChange={(e) => setEditingItem({ ...editingItem, author: e.target.value })}
+                                    />
+                                    <input
+                                        type="text"
+                                        value={editingItem.age}
+                                        onChange={(e) => setEditingItem({ ...editingItem, age: e.target.value })}
+                                    />
+                                    <input
+                                        type="text"
+                                        value={editingItem.word}
+                                        onChange={(e) => setEditingItem({ ...editingItem, word: e.target.value })}
+                                    />
+                                    <textarea
+                                        value={editingItem.description}
+                                        onChange={(e) => setEditingItem({ ...editingItem, description: e.target.value })}
+                                    />
+                                    <button className={styles.editingutton} onClick={() => editData(editingItem)}>Сохранить</button>
+                                    <button className={styles.editingButton} onClick={() => setEditingItem(null)}>Отмена</button>
+                                </div>
+                        ) : (
+                            <>
                         <p><strong>Автор</strong> {item.author}</p>
                         <p><strong>Возраст</strong> {item.age} &nbsp; лет</p>
                         <p><strong>Слово</strong> {item.word}</p>
                         <p><strong>Значение</strong> {item.description}</p>
+                                <button
+                                    className={styles.editButton}
+                                    onClick={() => setEditingItem(item)}
+                                >
+                                    Изменить
+                                </button>
                         <button
                             className={styles.deleteButton}
                             onClick={() => item._id && deleteData(item._id)}
                         >
                             Удалить
                         </button>
+                            </>
+                        )}
                     </div>
                 ))}
             </div>
