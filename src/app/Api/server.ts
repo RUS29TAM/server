@@ -62,6 +62,7 @@ app.delete('/api/data/:id', async (req, res) => {
     }
 });
 
+// Обработка PUT-запроса для изменения элемента данных по его _id
 app.put('/api/data/:id', async (req, res) => {
     try {
         const id = req.params.id;
