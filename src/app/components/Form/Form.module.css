@@ -65,7 +65,7 @@
     gap: 15px;
 }
 
-.submitButton,.clearButton {
+.submitButton,.clearButton, .viewButton {
     width: 100px;
     padding: 10px;
     font-size: 16px;
@@ -81,5 +81,9 @@
 }
 
 .clearButton:hover {
-    background-color: #45a049;
+    background-color: #f80404;
+}
+
+.viewButton:hover {
+    background-color: #3189f8;
 }
