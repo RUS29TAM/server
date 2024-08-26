@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import styles from './Form.module.css';
 import Modal from '../Modal/Modal';
+import Link from "next/link";
 
 interface FormData {
     author: string;
@@ -111,8 +112,9 @@ const Form: React.FC = () => {
                     {/*<button className={styles.clearTextArea} onClick={clearForm}>&times;</button>*/}
                 </div>
                 <div className={styles.btnWrapper}>
-                    <button className={styles.submitButton} type="submit">Отправить</button>
                     <button className={styles.clearButton} type="button" onClick={clearForm}>Удалить</button>
+                    <button className={styles.submitButton} type="submit">Отправить</button>
+                    <Link className={styles.viewButton} type="button" href={'/pages/DataFetcher'}>Просмотр</Link>
 
 
                 </div>
