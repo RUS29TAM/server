@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
 import styles from './DataFetcher.module.css';
 import Link from "next/link";
@@ -63,53 +63,62 @@ const Page: React.FC = () => {
                 {data.map((item) => (
                     <div key={item._id} className={styles.dataItem}>
                         {editingItem && editingItem._id === item._id ? (
-                                <div className={styles.editForm}>
-                                    <input
-                                        type="text"
-                                        value={editingItem.author}
-                                        onChange={(e) => setEditingItem({ ...editingItem, author: e.target.value })}
-                                    />
-                                    <input
-                                        type="text"
-                                        value={editingItem.age}
-                                        onChange={(e) => setEditingItem({ ...editingItem, age: e.target.value })}
-                                    />
-                                    <input
-                                        type="text"
-                                        value={editingItem.word}
-                                        onChange={(e) => setEditingItem({ ...editingItem, word: e.target.value })}
-                                    />
-                                    <textarea
-                                        value={editingItem.description}
-                                        onChange={(e) => setEditingItem({ ...editingItem, description: e.target.value })}
-                                    />
-                                    <button className={styles.acceptEditButton} onClick={() => editData(editingItem)}>Сохранить</button>
-                                    <button className={styles.cancelEditButton} onClick={() => setEditingItem(null)}>Отмена</button>
+                            <div className={styles.editForm}>
+                                <input
+                                    type="text"
+                                    value={editingItem.author}
+                                    onChange={(e) => setEditingItem({...editingItem, author: e.target.value})}
+                                />
+                                <input
+                                    type="text"
+                                    value={editingItem.age}
+                                    onChange={(e) => setEditingItem({...editingItem, age: e.target.value})}
+                                />
+                                <input
+                                    type="text"
+                                    value={editingItem.word}
+                                    onChange={(e) => setEditingItem({...editingItem, word: e.target.value})}
+                                />
+                                <textarea
+                                    value={editingItem.description}
+                                    onChange={(e) => setEditingItem({...editingItem, description: e.target.value})}
+                                />
+                                <div className={styles.btnWrapper}>
+                                    <button className={styles.acceptEditButton}
+                                            onClick={() => editData(editingItem)}>Сохранить
+                                    </button>
+                                    <button className={styles.cancelEditButton}
+                                            onClick={() => setEditingItem(null)}>Отмена
+                                    </button>
                                 </div>
+                            </div>
                         ) : (
                             <>
-                        <p><strong>Автор</strong> {item.author}</p>
-                        <p><strong>Возраст</strong> {item.age} &nbsp; лет</p>
-                        <p><strong>Слово</strong> {item.word}</p>
-                        <p><strong>Значение</strong> {item.description}</p>
-                                <button
-                                    className={styles.editButton}
-                                    onClick={() => setEditingItem(item)}
-                                >
-                                    Изменить
-                                </button>
-                        <button
-                            className={styles.deleteButton}
-                            onClick={() => item._id && deleteData(item._id)}
-                        >
-                            Удалить
-                        </button>
+                                <p><strong>Автор</strong> {item.author}</p>
+                                <p><strong>Возраст</strong> {item.age} &nbsp; лет</p>
+                                <p><strong>Слово</strong> {item.word}</p>
+                                <p><strong>Значение</strong> {item.description}</p>
+                                <div className={styles.btnWrapper}>
+
+                                    <button
+                                        className={styles.editButton}
+                                        onClick={() => setEditingItem(item)}
+                                    >
+                                        Изменить
+                                    </button>
+                                    <button
+                                        className={styles.deleteButton}
+                                        onClick={() => item._id && deleteData(item._id)}
+                                    >
+                                        Удалить
+                                    </button>
+                                </div>
                             </>
                         )}
                     </div>
                 ))}
             </div>
-            <Link className={styles.loadButton} href={'/'} >
+            <Link className={styles.loadButton} href={'/'}>
                 {loading ? 'Загрузка...' : 'Вернуться назад'}
             </Link>
         </div>
