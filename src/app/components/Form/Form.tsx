@@ -35,12 +35,24 @@ const Form: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            // Отправляем данные на сервер
+            // Сначала проверяем, существует ли слово
+            const checkResponse = await axios.get('http://localhost:5000/api/check-word', {
+                params: { word: formData.word }
+            });
+
+            if (checkResponse.data.exists) {
+                alert('Такое слово уже существует!'); // Уведомляем пользователя, что слово уже есть
+                return; // Останавливаем выполнение, если слово существует
+            }
+
+            // Если слова нет, продолжаем с отправкой формы
             const response = await axios.post('http://localhost:5000/api/data', formData);
             console.log('Данные отправлены:', response.data);
+
             // Выбор случайного слова
             const randomIndex = Math.floor(Math.random() * randomWords.length);
             setRandomWord(randomWords[randomIndex]);
+
             // Показать всплывающее окно
             setShowModal(true);
         } catch (error) {
