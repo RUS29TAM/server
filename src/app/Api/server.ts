@@ -23,6 +23,24 @@ const formSchema = new mongoose.Schema({
 
 const FormModel = mongoose.model('Form', formSchema);
 
+// Эндпоинт для проверки существования слова
+app.get('/api/check-word', async (req, res) => {
+    const { word } = req.query; // Получаем слово из запроса
+
+    try {
+        const existingWord = await FormModel.findOne({ word });
+        if (existingWord) {
+            return res.status(200).json({ exists: true });
+        } else {
+            return res.status(200).json({ exists: false });
+        }
+    } catch (err) {
+        console.error('Ошибка при проверке слова:', err);
+        res.status(500).send('Server error');
+    }
+});
+
+
 // Маршрут для обработки формы
 app.post('/api/data', async (req, res) => {
     const formData = new FormModel(req.body);
