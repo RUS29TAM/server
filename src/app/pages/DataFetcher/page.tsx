@@ -95,7 +95,7 @@ const Page: React.FC = () => {
                         ) : (
                             <>
                                 <p><strong>Автор</strong> {item.author}</p>
-                                <p><strong>Возраст</strong> {item.age} &nbsp; лет</p>
+                                <p><strong>Возраст</strong> {item.age} лет</p>
                                 <p><strong>Слово</strong> {item.word}</p>
                                 <p><strong>Значение</strong> {item.description}</p>
                                 <div className={styles.btnWrapper}>
