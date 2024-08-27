@@ -65,21 +65,25 @@ const Page: React.FC = () => {
                         {editingItem && editingItem._id === item._id ? (
                             <div className={styles.editForm}>
                                 <input
+                                    className={styles.inputField}
                                     type="text"
                                     value={editingItem.author}
                                     onChange={(e) => setEditingItem({...editingItem, author: e.target.value})}
                                 />
                                 <input
+                                    className={styles.inputField}
                                     type="text"
                                     value={editingItem.age}
                                     onChange={(e) => setEditingItem({...editingItem, age: e.target.value})}
                                 />
                                 <input
+                                    className={styles.inputField}
                                     type="text"
                                     value={editingItem.word}
                                     onChange={(e) => setEditingItem({...editingItem, word: e.target.value})}
                                 />
                                 <textarea
+                                    className={styles.textArea}
                                     value={editingItem.description}
                                     onChange={(e) => setEditingItem({...editingItem, description: e.target.value})}
                                 />
