@@ -69,18 +69,18 @@ const Form: React.FC = () => {
             description: ''
         });
     };
-    const clearForm = () => {
+    const clearField = (fieldName: keyof FormData) => {
         setFormData({
-            author: '',
-            age: '',
-            word: '',
-            description: ''
+            ...formData,
+            [fieldName]: ''
         });
+        console.log('clear')
     };
 
     return (
         <>
             <form className={styles.formContainer} onSubmit={handleSubmit}>
+                <div className={styles.inputWrapper}>
                 <input
                     className={styles.inputField}
                     type="text"
@@ -91,6 +91,15 @@ const Form: React.FC = () => {
                     required
                     maxLength={25}
                 />
+                <button
+                    type="button"
+                    className={styles.clearButton}
+                    onClick={() => clearField('author')}
+                >
+                    &times;
+                </button>
+                </div>
+                <div className={styles.inputWrapper}>
                 <input
                     className={styles.inputField}
                     type="number"
@@ -101,6 +110,15 @@ const Form: React.FC = () => {
                     required
                     maxLength={25}
                 />
+                <button
+                    type="button"
+                    className={styles.clearButton}
+                    onClick={() => clearField('age')}
+                >
+                    &times;
+                </button>
+                </div>
+                <div className={styles.inputWrapper}>
                 <input
                     className={styles.inputField}
                     type="text"
@@ -111,6 +129,14 @@ const Form: React.FC = () => {
                     required
                     maxLength={25}
                 />
+                    <button
+                        type="button"
+                        className={styles.clearButton}
+                        onClick={() => clearField('word')}
+                    >
+                        &times;
+                    </button>
+                </div>
                 <div className={styles.textAreaWrapper}>
                 <textarea
                     className={styles.textArea}
@@ -121,10 +147,15 @@ const Form: React.FC = () => {
                     required
                     maxLength={160}
                 />
-                    {/*<button className={styles.clearTextArea} onClick={clearForm}>&times;</button>*/}
+                    <button
+                        type="button"
+                        className={styles.clearButton}
+                        onClick={() => clearField('description')}
+                    >
+                        &times;
+                    </button>
                 </div>
                 <div className={styles.btnWrapper}>
-                    <button className={styles.clearButton} type="button" onClick={clearForm}>Удалить</button>
                     <button className={styles.submitButton} type="submit">Отправить</button>
                     <Link className={styles.viewButton} type="button" href={'/pages/DataFetcher'}>Просмотр</Link>
 
