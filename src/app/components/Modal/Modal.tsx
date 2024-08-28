@@ -3,6 +3,7 @@ import styles from './Modal.module.css';
 import Link from "next/link";
 
 interface ModalProps {
+    modalMessage: string;
     formData: {
         author: string;
         age: string;
@@ -13,20 +14,29 @@ interface ModalProps {
     onClose: () => void;
 }
 
-const Modal: React.FC<ModalProps> = ({ formData, randomWord, onClose }) => {
+const Modal: React.FC<ModalProps> = ({modalMessage, formData, randomWord, onClose }) => {
     return (
         <div className={styles.modalOverlay}>
             <div className={styles.modalContent}>
                 <div className={styles.modalHeader}>
-                    Данные успешно отправлены!
+                    {modalMessage}
                 </div>
-                <div className={styles.modalBody}>
-                    <p><strong> {randomWord} </strong> <strong> <strong>&quot;</strong>{formData.word}<strong>&quot;</strong></strong> это {formData.description}</p>
-                    {/*<p><strong>Это:</strong> {formData.message}</p>*/}
-                    <p><strong>Автор:</strong> {formData.author}</p>
+                {formData && randomWord && modalMessage === 'Словарь успешно пополнен!' && (
+                    <div className={styles.modalBody}>
+                        <p><strong> {randomWord} </strong> <strong> <strong>&quot;</strong>{formData.word}<strong>&quot;</strong></strong> это {formData.description}</p>
+                        <p><strong>Автор:</strong> {formData.author}</p>
+                    </div>
+                )}
+                <div className={styles.modalFooter}>
+                    <button className={styles.closeButton} onClick={onClose}>
+                        {modalMessage === 'Словарь успешно пополнен!' ? 'Новое слово' : 'Закрыть'}
+                    </button>
+                    {modalMessage === 'Словарь успешно пополнен!' && (
+                        <Link className={styles.closeButton} href={'/pages/DataFetcher'}>
+                            Просмотр
+                        </Link>
+                    )}
                 </div>
-                <button className={styles.closeButton} onClick={onClose}>Новое слово</button>
-                <Link className={styles.closeButton} href={'/pages/DataFetcher'}>Просмотр</Link>
 
             </div>
         </div>
