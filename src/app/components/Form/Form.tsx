@@ -23,6 +23,8 @@ const Form: React.FC = () => {
     });
     const [showModal, setShowModal] = useState<boolean>(false);
     const [randomWord, setRandomWord] = useState<string>(''); // Состояние для случайного слова
+    const [modalMessage, setModalMessage] = useState<string>(''); // Состояние для случайного слова
+
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const {name, value} = e.target;
@@ -41,7 +43,8 @@ const Form: React.FC = () => {
             });
 
             if (checkResponse.data.exists) {
-                alert('Такое слово уже существует!'); // Уведомляем пользователя, что слово уже есть
+                setModalMessage('Такое слово уже есть в словаре!'); // Уведомляем пользователя, что слово уже есть
+                setShowModal(true);
                 return; // Останавливаем выполнение, если слово существует
             }
 
@@ -54,6 +57,7 @@ const Form: React.FC = () => {
             setRandomWord(randomWords[randomIndex]);
 
             // Показать всплывающее окно
+            setModalMessage('Словарь успешно пополнен!');
             setShowModal(true);
         } catch (error) {
             console.error('Ошибка при отправке данных:', error);
@@ -164,7 +168,7 @@ const Form: React.FC = () => {
 
             </form>
             {showModal && (
-                <Modal formData={formData} randomWord={randomWord} onClose={handleCloseModal}/>
+                <Modal modalMessage={modalMessage} formData={formData} randomWord={randomWord} onClose={handleCloseModal}/>
             )}
         </>
 
