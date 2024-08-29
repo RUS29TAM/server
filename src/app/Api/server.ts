@@ -22,7 +22,12 @@ const formSchema = new mongoose.Schema({
 });
 
 const FormModel = mongoose.model('Form', formSchema);
+// Коллекция для хранения использованных слов
+const usedWordsSchema = new mongoose.Schema({
+    word: String,
+});
 
+const UsedWordsModel = mongoose.model('UsedWords', usedWordsSchema);
 // Эндпоинт для проверки существования слова
 app.get('/api/check-word', async (req, res) => {
     const { word } = req.query; // Получаем слово из запроса
@@ -44,15 +49,28 @@ app.get('/api/check-word', async (req, res) => {
 // Маршрут для обработки случайного слова в игре "Угадай что сказал автор"
 app.get('/api/random-word', async (req, res) => {
     try {
-        const count = await FormModel.countDocuments();
-        const random = Math.floor(Math.random() * count);
-        const randomWordDoc = await FormModel.findOne().skip(random);
+        // Получаем все слова
+        const allWords = await FormModel.find({});
+        const usedWords = await UsedWordsModel.find({});
 
-        if (randomWordDoc) {
-            res.json({ word: randomWordDoc.word });
-        } else {
-            res.status(404).send('No word found');
+        // Фильтруем использованные слова
+        const usedWordList = usedWords.map(doc => doc.word);
+        const availableWords = allWords.filter(wordDoc => !usedWordList.includes(wordDoc.word));
+
+        // Если все слова использованы, очищаем список использованных слов
+        if (availableWords.length === 0) {
+            await UsedWordsModel.deleteMany({});
+            return res.status(404).send('Все слова были использованы. Начинаем сначала.');
         }
+
+        // Выбираем случайное слово
+        const randomIndex = Math.floor(Math.random() * availableWords.length);
+        const randomWordDoc = availableWords[randomIndex];
+
+        // Сохраняем использованное слово
+        await new UsedWordsModel({ word: randomWordDoc.word }).save();
+
+        res.json({ word: randomWordDoc.word });
     } catch (err) {
         console.error('Ошибка при получении случайного слова:', err);
         res.status(500).send('Server error');
@@ -76,9 +94,6 @@ app.post('/api/check-description', async (req, res) => {
         res.status(500).send('Server error');
     }
 });
-
-
-
 
 // Маршрут для обработки формы
 app.post('/api/data', async (req, res) => {
