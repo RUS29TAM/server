@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import styles from './GuessWord.module.css';
 import Modal from '../../components/Modal/Modal';
@@ -12,15 +12,21 @@ const GuessWord: React.FC = () => {
 
     // Получение случайного слова при загрузке компонента
     useEffect(() => {
-        fetchRandomWord();
+        const savedWord = localStorage.getItem('randomWord');
+        if (savedWord) {
+            setRandomWord(savedWord);
+        }
     }, []);
 
     const fetchRandomWord = async () => {
         try {
             const response = await axios.get('http://localhost:5000/api/random-word');
             setRandomWord(response.data.word);
+            localStorage.setItem('randomWord', response.data.word); // Сохранение в localStorage
         } catch (error) {
             console.error('Ошибка при получении случайного слова:', error);
+            setModalMessage('Все слова были использованы. Начинаем сначала.');
+            setShowModal(true);
         }
     };
 
@@ -48,8 +54,10 @@ const GuessWord: React.FC = () => {
 
     const handleCloseModal = () => {
         setShowModal(false);
+        localStorage.removeItem('randomWord');
         if (modalMessage === 'Вы угадали!') {
             fetchRandomWord(); // Получить новое слово, если угадали
+            setRandomWord('')
             setDescription(''); // Очистить поле для нового описания
         } else {
             setDescription(''); // Очистить поле для повторной попытки
@@ -70,6 +78,8 @@ const GuessWord: React.FC = () => {
             />
             <div className={styles.btnWrapper}>
                 <button className={styles.submitButton} onClick={handleSubmit}>Проверить</button>
+                {!randomWord && !description &&
+                    <button className={styles.submitButton} onClick={fetchRandomWord}>Начать</button>}
             </div>
             {showModal && (
                 <Modal
