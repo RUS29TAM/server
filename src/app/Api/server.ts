@@ -41,6 +41,45 @@ app.get('/api/check-word', async (req, res) => {
 });
 
 
+// Маршрут для обработки случайного слова в игре "Угадай что сказал автор"
+app.get('/api/random-word', async (req, res) => {
+    try {
+        const count = await FormModel.countDocuments();
+        const random = Math.floor(Math.random() * count);
+        const randomWordDoc = await FormModel.findOne().skip(random);
+
+        if (randomWordDoc) {
+            res.json({ word: randomWordDoc.word });
+        } else {
+            res.status(404).send('No word found');
+        }
+    } catch (err) {
+        console.error('Ошибка при получении случайного слова:', err);
+        res.status(500).send('Server error');
+    }
+});
+
+// Маршрут для проверки соответствия описания случайного слова в игре "Угадай что сказал автор"
+app.post('/api/check-description', async (req, res) => {
+    const { word, description } = req.body;
+    try {
+        const wordDoc = await FormModel.findOne({ word: word });
+
+        if (wordDoc) {
+            const isCorrect = wordDoc.description === description;
+            res.json({ correct: isCorrect });
+        } else {
+            res.status(404).send('Word not found');
+        }
+    } catch (err) {
+        console.error('Ошибка при проверке описания:', err);
+        res.status(500).send('Server error');
+    }
+});
+
+
+
+
 // Маршрут для обработки формы
 app.post('/api/data', async (req, res) => {
     const formData = new FormModel(req.body);
