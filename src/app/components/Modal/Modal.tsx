@@ -4,13 +4,13 @@ import Link from "next/link";
 
 interface ModalProps {
     modalMessage: string;
-    formData: {
-        author: string;
-        age: string;
-        word: string;
-        description: string;
+    formData?: {
+        author?: string;
+        age?: string;
+        word?: string;
+        description?: string;
     };
-    randomWord: string; // Новое свойство для случайного слова
+    randomWord?: string; // Новое свойство для случайного слова
     onClose: () => void;
 }
 
@@ -23,7 +23,7 @@ const Modal: React.FC<ModalProps> = ({modalMessage, formData, randomWord, onClos
                 </div>
                 {formData && randomWord && modalMessage === 'Словарь успешно пополнен!' && (
                     <div className={styles.modalBody}>
-                        <p><strong> {randomWord} </strong> <strong> <strong>&quot;</strong>{formData.word}<strong>&quot;</strong></strong> это {formData.description}</p>
+                        <p><strong> {randomWord} </strong> <strong> <strong>&quot;</strong>{formData?.word}<strong>&quot;</strong></strong> это {formData?.description}</p>
                         <p><strong>Автор:</strong> {formData.author}</p>
                     </div>
                 )}
