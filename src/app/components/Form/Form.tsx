@@ -25,7 +25,6 @@ const Form: React.FC = () => {
     const [randomWord, setRandomWord] = useState<string>(''); // Состояние для случайного слова
     const [modalMessage, setModalMessage] = useState<string>(''); // Состояние для случайного слова
 
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const {name, value} = e.target;
         setFormData({
@@ -39,7 +38,7 @@ const Form: React.FC = () => {
         try {
             // Сначала проверяем, существует ли слово
             const checkResponse = await axios.get('http://localhost:5000/api/check-word', {
-                params: { word: formData.word }
+                params: {word: formData.word}
             });
 
             if (checkResponse.data.exists) {
@@ -63,6 +62,7 @@ const Form: React.FC = () => {
             console.error('Ошибка при отправке данных:', error);
         }
     };
+
     const handleCloseModal = () => {
         setShowModal(false);
         // Очистка полей формы после успешной отправки
@@ -73,6 +73,7 @@ const Form: React.FC = () => {
             description: ''
         });
     };
+
     const clearField = (fieldName: keyof FormData) => {
         setFormData({
             ...formData,
@@ -85,54 +86,54 @@ const Form: React.FC = () => {
         <>
             <form className={styles.formContainer} onSubmit={handleSubmit}>
                 <div className={styles.inputWrapper}>
-                <input
-                    className={styles.inputField}
-                    type="text"
-                    name="author"
-                    value={formData.author}
-                    onChange={handleChange}
-                    placeholder="Кому пренадлежит слово"
-                    required
-                    maxLength={25}
-                />
-                <button
-                    type="button"
-                    className={styles.clearButton}
-                    onClick={() => clearField('author')}
-                >
-                    &times;
-                </button>
+                    <input
+                        className={styles.inputField}
+                        type="text"
+                        name="author"
+                        value={formData.author}
+                        onChange={handleChange}
+                        placeholder="Кому пренадлежит слово"
+                        required
+                        maxLength={25}
+                    />
+                    <button
+                        type="button"
+                        className={styles.clearButton}
+                        onClick={() => clearField('author')}
+                    >
+                        &times;
+                    </button>
                 </div>
                 <div className={styles.inputWrapper}>
-                <input
-                    className={styles.inputField}
-                    type="number"
-                    name="age"
-                    value={formData.age}
-                    onChange={handleChange}
-                    placeholder="Полных лет автору"
-                    required
-                    maxLength={25}
-                />
-                <button
-                    type="button"
-                    className={styles.clearButton}
-                    onClick={() => clearField('age')}
-                >
-                    &times;
-                </button>
+                    <input
+                        className={styles.inputField}
+                        type="number"
+                        name="age"
+                        value={formData.age}
+                        onChange={handleChange}
+                        placeholder="Полных лет автору"
+                        required
+                        maxLength={25}
+                    />
+                    <button
+                        type="button"
+                        className={styles.clearButton}
+                        onClick={() => clearField('age')}
+                    >
+                        &times;
+                    </button>
                 </div>
                 <div className={styles.inputWrapper}>
-                <input
-                    className={styles.inputField}
-                    type="text"
-                    name="word"
-                    value={formData.word}
-                    onChange={handleChange}
-                    placeholder="Слово"
-                    required
-                    maxLength={25}
-                />
+                    <input
+                        className={styles.inputField}
+                        type="text"
+                        name="word"
+                        value={formData.word}
+                        onChange={handleChange}
+                        placeholder="Слово"
+                        required
+                        maxLength={25}
+                    />
                     <button
                         type="button"
                         className={styles.clearButton}
@@ -162,17 +163,14 @@ const Form: React.FC = () => {
                 <div className={styles.btnWrapper}>
                     <button className={styles.submitButton} type="submit">Отправить</button>
                     <Link className={styles.viewButton} type="button" href={'/pages/DataFetcher'}>Просмотр</Link>
-
-
                 </div>
-
             </form>
+            <Link className={styles.playButton} href={'/pages/GuessWord'}>Играть</Link>
             {showModal && (
-                <Modal modalMessage={modalMessage} formData={formData} randomWord={randomWord} onClose={handleCloseModal}/>
+                <Modal modalMessage={modalMessage} formData={formData} randomWord={randomWord}
+                       onClose={handleCloseModal}/>
             )}
         </>
-
-
     );
 };
 
