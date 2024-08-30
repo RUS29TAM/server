@@ -103,7 +103,10 @@
     margin-top: 10px;
 }
 
-.submitButton,.viewButton {
+.submitButton,.viewButton,.playButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100px;
     padding: 10px;
     font-size: 16px;
@@ -120,4 +123,11 @@
 
 .viewButton:hover {
     background-color: #3189f8;
+}
+
+.playButton {
+    margin-top: 10px;
+}
+.playButton:hover {
+    background-color: #7f4cff;
 }
