@@ -30,7 +30,7 @@ const GuessWord: React.FC = () => {
         }
     };
 
-    const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setDescription(e.target.value);
     };
 
@@ -65,21 +65,26 @@ const GuessWord: React.FC = () => {
     };
 
     return (
-        <div className={styles.container}>
+        <div className={styles.formContainer}>
             <h2>Угадайте слово</h2>
-            <p>Слово: <strong>{randomWord}</strong></p>
-            <textarea
-                className={styles.textArea}
-                name="description"
-                value={description}
-                onChange={handleDescriptionChange}
-                placeholder="Введите описание..."
-                maxLength={160}
-            />
-            <div className={styles.btnWrapper}>
-                <button className={styles.submitButton} onClick={handleSubmit}>Проверить</button>
-                {!randomWord && !description &&
-                    <button className={styles.submitButton} onClick={fetchRandomWord}>Начать</button>}
+            <h2>Слово: <strong>{randomWord}</strong></h2>
+            <div className={styles.inputWrapper}>
+                <input
+                    className={styles.inputField}
+                    name="description"
+                    value={description}
+                    onChange={handleDescriptionChange}
+                    placeholder="Введите описание..."
+                    maxLength={50}
+                />
+                <div className={styles.btnWrapper}>
+                    {!randomWord && !description
+                        ?
+                        <button className={styles.submitButton} onClick={fetchRandomWord}>Начать</button>
+                        :
+                        <button className={styles.submitButton} onClick={handleSubmit}>Проверить</button>
+                    }
+                </div>
             </div>
             {showModal && (
                 <Modal
