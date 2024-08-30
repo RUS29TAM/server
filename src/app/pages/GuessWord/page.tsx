@@ -66,8 +66,8 @@ const GuessWord: React.FC = () => {
 
     return (
         <div className={styles.formContainer}>
-            <h2>Угадайте слово</h2>
-            <h2>Слово: <strong>{randomWord}</strong></h2>
+            <h2>Что значит слово: {randomWord}</h2>
+            <h2></h2>
             <div className={styles.inputWrapper}>
                 <input
                     className={styles.inputField}
