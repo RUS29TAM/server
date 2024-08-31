@@ -64,19 +64,32 @@ const GuessWord: React.FC = () => {
         }
     };
 
+    const clearField = () => {
+        setDescription('');
+    };
+
     return (
-        <div className={styles.formContainer}>
-            <h2>Что значит слово: {randomWord}</h2>
-            <h2></h2>
-            <div className={styles.inputWrapper}>
-                <input
-                    className={styles.inputField}
-                    name="description"
-                    value={description}
-                    onChange={handleDescriptionChange}
-                    placeholder="Введите описание..."
-                    maxLength={50}
-                />
+        <div className={styles.wrapper}>
+            <div className={styles.formContainer}>
+                <h2>Что значит слово: {randomWord}</h2>
+                <h2></h2>
+                <div className={styles.inputWrapper}>
+                    <input
+                        className={styles.inputField}
+                        name="description"
+                        value={description}
+                        onChange={handleDescriptionChange}
+                        placeholder="Введите описание..."
+                        maxLength={50}
+                    />
+                    <button
+                        type="button"
+                        className={styles.clearButton}
+                        onClick={clearField}
+                    >
+                        &times;
+                    </button>
+                </div>
                 <div className={styles.btnWrapper}>
                     {!randomWord && !description
                         ?
@@ -85,14 +98,15 @@ const GuessWord: React.FC = () => {
                         <button className={styles.submitButton} onClick={handleSubmit}>Проверить</button>
                     }
                 </div>
+                {showModal && (
+                    <Modal
+                        modalMessage={modalMessage}
+                        onClose={handleCloseModal}
+                    />
+                )}
             </div>
-            {showModal && (
-                <Modal
-                    modalMessage={modalMessage}
-                    onClose={handleCloseModal}
-                />
-            )}
         </div>
+
     );
 };
 
