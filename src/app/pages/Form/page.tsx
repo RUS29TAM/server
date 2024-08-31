@@ -2,7 +2,7 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import styles from './Form.module.css';
-import Modal from '../Modal/Modal';
+import Modal from '../../components/Modal/Modal';
 import Link from "next/link";
 
 interface FormData {
@@ -14,7 +14,7 @@ interface FormData {
 
 const randomWords = ['Оказывается слово', 'Представляешь', 'Разве ты не знаешь, что', 'Запомни', 'Будь в курсе']; // Массив случайных слов
 
-const Form: React.FC = () => {
+const Page: React.FC = () => {
     const [formData, setFormData] = useState<FormData>({
         author: '',
         age: '',
@@ -83,7 +83,7 @@ const Form: React.FC = () => {
     };
 
     return (
-        <>
+        <div className={styles.wrapper}>
             <form className={styles.formContainer} onSubmit={handleSubmit}>
                 <div className={styles.inputWrapper}>
                     <input
@@ -170,8 +170,8 @@ const Form: React.FC = () => {
                 <Modal modalMessage={modalMessage} formData={formData} randomWord={randomWord}
                        onClose={handleCloseModal}/>
             )}
-        </>
+        </div>
     );
 };
 
-export default Form;
+export default Page;
