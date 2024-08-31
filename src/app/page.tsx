@@ -1,11 +1,11 @@
 'use client'
-import styles from "./page.module.css";
-import Form from "@/app/components/Form/Form";
+import styles from "@/app/pages/Main/Main.module.css";
+import Page from "@/app/pages/Main/page";
 
 export default function Home() {
   return (
     <main className={styles.main}>
-      <Form />
+      <Page />
     </main>
   );
 }
