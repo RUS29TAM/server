@@ -1,3 +1,15 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    min-height: 100vh;
+    box-sizing: border-box;
+    margin: 0 auto;
+    background-image: linear-gradient(to right, #f9d423 0%, #ff4e50 100%);
+}
+
 .formContainer {
     /*display: flex;*/
     /*flex-direction: column;*/
@@ -10,6 +22,7 @@
     align-items: center;
     padding: 20px;
     margin: 0;
+    gap: 10px;
     backdrop-filter: blur(5px);
     background: hsla(0,0%,100%,.1);
     border-bottom: 1px solid hsla(0,0%,100%,.5);
@@ -22,7 +35,6 @@
 }
 
 .inputField {
-    margin-top: 10px;
     width: 300px;
     padding: 10px;
     font-size: 16px;
@@ -33,21 +45,42 @@
     backdrop-filter: blur(5px);
     background: rgba(0, 0, 0, 0.4);
 }
-
+.inputField::placeholder  {
+    color: rgba(255, 255, 255, 0.2);
+    font-weight: normal;
+    font-size: small;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
 
 .btnWrapper {
     display: flex;
     gap: 15px;
     padding: 10px;
-    margin-top: 10px;
 }
 
 .inputWrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 10px;
     position: relative;
+
+}
+
+.clearButton {
+    background: none;
+    border: none;
+    color: rgba(52, 52, 52, 0.5);
+    font-size: 1.5rem;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.clearButton:hover {
+    color: #FFFFFF;
 }
 
 .submitButton {
