@@ -21,7 +21,7 @@ const formSchema = new mongoose.Schema({
     description: String,
 });
 
-const FormModel = mongoose.model('Form', formSchema);
+const FormModel = mongoose.model('WordsDataForm', formSchema); //WordsDataForm & Page
 // Коллекция для хранения использованных слов
 const usedWordsSchema = new mongoose.Schema({
     word: String,
