@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import styles from './GuessWord.module.css';
 import Modal from '../../components/Modal/Modal';
+import Link from "next/link";
 
 const GuessWord: React.FC = () => {
     const [randomWord, setRandomWord] = useState<string>('');
@@ -93,7 +94,10 @@ const GuessWord: React.FC = () => {
                 <div className={styles.btnWrapper}>
                     {!randomWord && !description
                         ?
-                        <button className={styles.submitButton} onClick={fetchRandomWord}>Начать</button>
+                        <>
+                            <button className={styles.submitButton} onClick={fetchRandomWord}>Начать</button>
+                            <Link className={styles.submitButton} href={'/'}>Назад</Link>
+                        </>
                         :
                         <button className={styles.submitButton} onClick={handleSubmit}>Проверить</button>
                     }
