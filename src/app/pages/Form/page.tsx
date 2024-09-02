@@ -162,10 +162,9 @@ const Page: React.FC = () => {
                 </div>
                 <div className={styles.btnWrapper}>
                     <button className={styles.submitButton} type="submit">Отправить</button>
-                    <Link className={styles.viewButton} type="button" href={'/pages/DataFetcher'}>Просмотр</Link>
+                    <Link className={styles.viewButton} type="button" href={'/'}>Назад</Link>
                 </div>
             </form>
-            <Link className={styles.playButton} href={'/pages/GuessWord'}>Играть</Link>
             {showModal && (
                 <Modal modalMessage={modalMessage} formData={formData} randomWord={randomWord}
                        onClose={handleCloseModal}/>
